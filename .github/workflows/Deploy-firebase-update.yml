@@ -3,9 +3,7 @@ name: Deploy Firebase Functions
 on:
   push:
     branches:
-      - main 
-    paths:
-      - 'functions/**'            
+      - master
 
 jobs:
   build-and-deploy:
@@ -28,11 +26,15 @@ jobs:
       working-directory: ./functions
 
     - name: Set up Google Application Credentials
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
-      run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}" > $GOOGLE_APPLICATION_CREDENTIALS
+      run: |
+        echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > "$HOME/service-account.json"
+        export GOOGLE_APPLICATION_CREDENTIALS="$HOME/service-account.json"
+        
+        # Verify the JSON file exists and is readable
+        ls -la "$HOME/service-account.json"
+        cat "$HOME/service-account.json" | head -c 100  # Output first 100 chars for verification
 
     - name: Deploy to Firebase
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
+        GOOGLE_APPLICATION_CREDENTIALS: "$HOME/service-account.json"
       run: firebase deploy --only functions
