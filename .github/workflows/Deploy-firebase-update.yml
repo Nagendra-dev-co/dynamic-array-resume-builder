@@ -27,10 +27,9 @@ jobs:
       working-directory: ./functions
 
     - name: Set up Google Application Credentials
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
-      run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}" > $GOOGLE_APPLICATION_CREDENTIALS
-
+      run: |
+              echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > "$HOME/service-account.json"
+               export GOOGLE_APPLICATION_CREDENTIALS="$HOME/service-account.json"
     - name: Deploy to Firebase
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
