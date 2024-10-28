@@ -29,10 +29,8 @@ jobs:
       run: |
         echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > "$HOME/service-account.json"
         export GOOGLE_APPLICATION_CREDENTIALS="$HOME/service-account.json"
-        
-        # Verify the JSON file exists and is readable
         ls -la "$HOME/service-account.json"
-        cat "$HOME/service-account.json" | head -c 100  # Output first 100 chars for verification
+        cat "$HOME/service-account.json" | head -c 100  
 
     - name: Deploy to Firebase
       env:
