@@ -30,7 +30,7 @@ jobs:
         echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > "$HOME/service-account.json"
         export GOOGLE_APPLICATION_CREDENTIALS="$HOME/service-account.json"
         ls -la "$HOME/service-account.json"
-        cat "$HOME/service-account.json" | head -c 100  
+        cat "$HOME/service-account.json" | head -c 20
 
     - name: Deploy to Firebase
       env:
