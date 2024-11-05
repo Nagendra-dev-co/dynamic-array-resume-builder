@@ -27,8 +27,8 @@ jobs:
 
     - name: Set up Google Application Credentials
       run: |
-        echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > "$HOME/service-account.json"
-        export GOOGLE_APPLICATION_CREDENTIALS="$HOME/service-account.json"
+        echo "${{ secrets.SERVICE_ACCOUNT }}" > "$HOME/service-account.json"
+        export SERVICE_ACCOUNT="$HOME/service-account.json"
         ls -la "$HOME/service-account.json"
         cat "$HOME/service-account.json" | head -c 50  
 
