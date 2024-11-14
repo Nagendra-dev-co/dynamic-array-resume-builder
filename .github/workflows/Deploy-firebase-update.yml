@@ -26,11 +26,18 @@ jobs:
       working-directory: ./functions
 
     - name: Set up Google Application Credentials
+      env:
+        SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT }}
       run: |
-        echo "${{ secrets.SERVICE_ACCOUNT }}" > "$HOME/service-account.json"
-        export SERVICE_ACCOUNT="$HOME/service-account.json"
+        echo "$SERVICE_ACCOUNT_KEY" > "$HOME/service-account.json"
+        export GOOGLE_APPLICATION_CREDENTIALS="$HOME/service-account.json"
         ls -la "$HOME/service-account.json"
         cat "$HOME/service-account.json" | head -c 50  
+
+    - name: Authenticate with Firebase
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: "$HOME/service-account.json"
+      run: firebase auth:import --project dynamic-array-resume-builder
 
     - name: Deploy to Firebase
       env:
