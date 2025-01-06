@@ -23,4 +23,4 @@ jobs:
         run: docker push docker.io/${{ secrets.DOCKER_USERNAME }}/firebase-function:latest
 
       - name: Deploy to Firebase
-        run: docker run --rm -e GOOGLE_APPLICATION_CREDENTIALS="/app/credentials.json" -v ${{ secrets.GCP_SA_KEY }}:/app/credentials.json docker.io/${{ secrets.DOCKER_USERNAME }}/firebase-functions:latest
+        run: docker run --rm -e GOOGLE_APPLICATION_CREDENTIALS="/app/credentials.json" -v ${{ secrets.GCP_SA_KEY }}:/app/credentials.json docker.io/${{ secrets.DOCKER_USERNAME }}/firebase-function:latest
