@@ -36,13 +36,13 @@ jobs:
           docker run \
             -e GOOGLE_APPLICATION_CREDENTIALS="/app/credentials.json" \
             -v /tmp/gcp-sa-key.json:/app/credentials.json \
-            docker.io/${{ secrets.DOCKER_USERNAME }}/firebase-functions:latest
+            docker.io/${{ secrets.DOCKER_USERNAME }}/firebase-function:latest
 
       - name: Deploy Firebase Functions with gcloud
         run: |
               gcloud auth activate-service-account --key-file /tmp/gcp-sa-key.json
                 gcloud run deploy firebase-functions \
-                --image docker.io/${{ secrets.DOCKER_USERNAME }}/firebase-functions:latest \
+                --image docker.io/${{ secrets.DOCKER_USERNAME }}/firebase-function:latest \
                 --platform managed \
                 --region ${{ secrets.GCP_REGION }} \
                 --project ${{ secrets.GCP_PROJECT_ID }} \
